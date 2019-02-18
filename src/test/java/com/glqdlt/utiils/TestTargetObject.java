@@ -32,4 +32,37 @@ public class TestTargetObject {
     private String stringField;
     private Integer integerField;
     private boolean booleanField;
+
+    public SimpleInnerClass getSimpleInnerClass() {
+        return simpleInnerClass;
+    }
+
+    public void setSimpleInnerClass(SimpleInnerClass simpleInnerClass) {
+        this.simpleInnerClass = simpleInnerClass;
+    }
+
+    private SimpleInnerClass simpleInnerClass;
+
+    public static class SimpleInnerClass{
+        public String getSimple() {
+            return simple;
+        }
+
+        public void setSimple(String simple) {
+            this.simple = simple;
+        }
+
+        public SimpleInnerClass(String simple) {
+            this.simple = simple;
+        }
+
+        @Override
+        public String toString() {
+            return "SimpleInnerClass{" +
+                    "simple='" + simple + '\'' +
+                    '}';
+        }
+
+        private String simple;
+    }
 }

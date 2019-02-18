@@ -19,6 +19,7 @@ public class MapperTest {
         testTargetObject.setBooleanField(true);
         testTargetObject.setStringField("hello");
         testTargetObject.setIntegerField(999);
+        testTargetObject.setSimpleInnerClass(new TestTargetObject.SimpleInnerClass("haha"));
 
         Field[] feilds = TestTargetObject.class.getDeclaredFields();
         Method[] methods = TestTargetObject.class.getDeclaredMethods();
@@ -35,7 +36,7 @@ public class MapperTest {
                 System.out.println(m);
                 try {
                     Object aaa = x.invoke(testTargetObject);
-                    System.out.println(aaa);
+                    System.out.println(aaa.toString());
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
