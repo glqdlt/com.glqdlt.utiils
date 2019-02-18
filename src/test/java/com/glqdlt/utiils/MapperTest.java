@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -14,12 +15,12 @@ import java.util.stream.Stream;
 public class MapperTest {
 
     @Test
-    public void TestReplication() {
+    public void testReplication() {
         TestTargetObject testTargetObject = new TestTargetObject();
         testTargetObject.setBooleanField(true);
         testTargetObject.setStringField("hello");
         testTargetObject.setIntegerField(999);
-        testTargetObject.setSimpleInnerClass(new TestTargetObject.SimpleInnerClass("haha"));
+        testTargetObject.setSimpleInnerClass(null);
 
         Field[] feilds = TestTargetObject.class.getDeclaredFields();
         Method[] methods = TestTargetObject.class.getDeclaredMethods();
@@ -32,15 +33,22 @@ public class MapperTest {
         Stream.of(methods).forEach(x -> {
             String m = x.getName();
             boolean matched = m.matches(regex);
-            if(matched){
+            if (matched) {
                 System.out.println(m);
                 try {
                     Object aaa = x.invoke(testTargetObject);
-                    System.out.println(aaa.toString());
+                    Optional<Object> optional = Optional.ofNullable(aaa);
+                    System.out.println(optional.orElse("-!null!-"));
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    @Test
+    public void replicationFail() {
+
+
     }
 }
